@@ -1,4 +1,4 @@
-use bevy::{prelude::*, transform::commands};
+use bevy::prelude::*;
 
 use crate::movement::Velocity;
 
@@ -6,7 +6,7 @@ const STARTING_TRANSLATION: Vec3 = Vec3::new(0.0, 0.0, -20.0);
 const STARTING_VELOCITY: Vec3 = Vec3::new(0.0, 0.0, 1.0);
 
 #[derive(Bundle)]
-struct spaceshipBundle{
+struct SpaceshipBundle{
     velocity: Velocity,
     model: SceneBundle
 }
@@ -20,7 +20,7 @@ impl Plugin for SpaceshipPlugin{
 }
 
 fn spawn_spaceship(mut commands: Commands, asset_server:Res<AssetServer>) {
-    commands.spawn(spaceshipBundle {
+    commands.spawn(SpaceshipBundle {
         velocity: Velocity{
             value:STARTING_VELOCITY
         },
