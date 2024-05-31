@@ -1,12 +1,4 @@
 [package]
-name = "spaceship_game"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-bevy = "0.13.2"
-
-[package]
 name = "rs2igra"
 version = "0.1.0"
 edition = "2021"
