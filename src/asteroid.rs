@@ -1,13 +1,10 @@
+use bevy::prelude::*;
+use rand::*;
 use std::ops::Range;
 
-use bevy::prelude::*;
-use rand::prelude::*;
-
-use crate::{
-    asset_loader::SceneAssets,
-    collision_detection::Collider,
-    movement::{Acceleration, MovingObjectBundle, Velocity},
-};
+use crate::asset_loader::SceneAssets;
+use crate::collision_detection::Collider;
+use crate::movement::{Acceleration, MovingObjectBundle, Velocity};
 
 const VELOCITY_SCALAR: f32 = 5.0;
 const ACCELERATION_SCALAR: f32 = 1.0;
@@ -15,16 +12,17 @@ const SPAWN_RANGE_X: Range<f32> = -25.0..25.0;
 const SPAWN_RANGE_Z: Range<f32> = 0.0..25.0;
 const SPAWN_TIME_SECONDS: f32 = 1.0;
 const ROTATE_SPEED: f32 = 2.5;
-const RADIUS: f32 = 2.5;
+const ASTEROID_RADIUS: f32 = 1.0;
 
-#[derive(Component, Debug)]
-pub struct Asteroid;
-
-#[derive(Resource, Debug)]
+#[derive(Debug, Resource)]
 pub struct SpawnTimer {
     timer: Timer,
 }
 
+#[derive(Component, Debug)]
+pub struct Asteroid;
+
+#[derive(Debug, Component)]
 pub struct AsteroidPlugin;
 
 impl Plugin for AsteroidPlugin {
@@ -67,7 +65,7 @@ fn spawn_asteroid(
         MovingObjectBundle {
             acceleration: Acceleration::new(acceleration),
             velocity: Velocity::new(velocity),
-            collider: Collider::new(RADIUS),
+            collider: Collider::new(ASTEROID_RADIUS),
             model: SceneBundle {
                 scene: scene_assets.asteroid.clone(),
                 transform: Transform::from_translation(translation),
@@ -90,11 +88,11 @@ fn handle_asteroid_collisions(
 ) {
     for (entity, collider) in query.iter() {
         for &collided_entity in collider.colliding_entities.iter() {
-            // Asteroid collided with another asteroid.
+            //Asteroid collides with another asteroid
             if query.get(collided_entity).is_ok() {
                 continue;
             }
-            // Despawn the asteroid.
+            //Despawn the asteroid
             commands.entity(entity).despawn_recursive();
         }
     }
