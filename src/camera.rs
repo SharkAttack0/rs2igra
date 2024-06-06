@@ -1,6 +1,10 @@
 use bevy::prelude::*;
 
 const CAMERA_DISTANCE: f32 = 80.0;
+const CAMERA_TILT_SPEED: f32 = 1.0;
+
+#[derive(Component, Debug)]
+pub struct GameCamera;
 
 pub struct CameraPlugin;
 

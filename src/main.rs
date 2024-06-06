@@ -1,4 +1,6 @@
 use asset_loader::AssetLoaderPlugin;
+use bevy::diagnostic::FrameTimeDiagnosticsPlugin;
+use bevy::diagnostic::LogDiagnosticsPlugin;
 use bevy::prelude::*;
 use debug::DebugPlugin;
 
@@ -9,6 +11,7 @@ use despawn::DespawnPlugin;
 use movement::MovementPlugin;
 use schedule::SchedulePlugin;
 use spaceship::SpaceshipPlugin;
+use state::StatePlugin;
 
 mod asset_loader;
 mod asteroid;
@@ -16,9 +19,11 @@ mod camera;
 mod collision_detection;
 mod debug;
 mod despawn;
+mod health;
 mod movement;
 mod schedule;
 mod spaceship;
+mod state;
 
 fn main() {
     App::new()
@@ -37,5 +42,10 @@ fn main() {
         .add_plugins(CollisionDetectionPlugin)
         .add_plugins(DespawnPlugin)
         .add_plugins(SchedulePlugin)
+        .add_plugins(FrameTimeDiagnosticsPlugin::default())
+        .add_plugins(LogDiagnosticsPlugin::default())
+        .add_plugins(StatePlugin)
         .run();
+    let a = 5;
+    let b = a - 2;
 }
